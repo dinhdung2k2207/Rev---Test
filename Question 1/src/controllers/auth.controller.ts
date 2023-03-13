@@ -6,7 +6,6 @@ import { Role } from "../enums/role.enum";
 import { generalTokens } from "../utils/generalToken";
 import { sendRefreshToken } from "../utils/sendRefreshToken";
 import { v4 as uuidv4 } from "uuid";
-import { EXPIRES_SESSION_TOKEN } from "../configs/constantEnv";
 
 export class AuthController {
   public sendOTPVerificationEmail = async (

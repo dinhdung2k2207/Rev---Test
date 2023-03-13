@@ -9,12 +9,12 @@ Before installing, [download and install Node.js](https://nodejs.org/en/download
 Node.js 0.10 or higher is required.
 
 - Installation is done using the
-
 ```console
 $ npm install
 ```
 
 - Create new file `.env` to set up environment variables
+
 
 - Run this command for run the project
 
@@ -23,7 +23,6 @@ $ npm run server-ts
 ```
 
 - Run 2 APIS to create example database
-
 ```console
  http://localhost:8000/api/initAdminAcc
 ```
@@ -33,7 +32,6 @@ $ npm run server-ts
 ```
 
 - Import file Rev-Dev.postman_collection.json to **PostMan** for test API
-
 ## Features
 
 - The patient would only provide personal credentials for the lab technican to help setup the account ✅
@@ -43,29 +41,30 @@ $ npm run server-ts
 - Administrator should be able to search patient records ✅
 - The system must prevent multiple sign in with the same login credentials ✅
 
+
+## UML 
+- [Use case](https://drive.google.com/file/d/11whYa1nFA9PIXtJE69Qq04OhpTh1IO7c/view?usp=sharing)
+- [Class Diagram](https://drive.google.com/file/d/1qGMVZpUDKp9mezTRJZCC0oqy0T-VlEVT/view?usp=sharing)
+
 ## APIS
-
 baseURL: http://localhost:8000
-
 #### Sign Up
 
 ```http
   POST /api/signUp
 ```
 
-| Parameter    | Type     | Request  | Description                               |
-| :----------- | :------- | :------- | :---------------------------------------- |
-| `email`      | `string` | **Body** | **Required**. Cannot duplicate            |
-| `password`   | `string` | **Body** | **Required**                              |
-| `type`       | `string` | **Body** | **Required**. Must be parent/infant/child |
-| `frist_name` | `string` | **Body** | **Required** First name of patient        |
-| `last_name`  | `string` | **Body** | **Required** Last name of patient         |
-| `address`    | `string` | **Body** | **Required** Address of patient           |
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `email` | `string` | **Body** |**Required**. Cannot duplicate |
+| `password` | `string` | **Body** |**Required** |
+| `type` | `string` | **Body** |**Required**. Must be parent/infant/child |
+| `frist_name` | `string` | **Body** |**Required** First name of patient |
+| `last_name` | `string` | **Body** |**Required** Last name of patient |
+| `address` | `string` | **Body** |**Required** Address of patient |
 
 ##### Example
-
-- **Input**:
-
+- **Input**: 
 ```
 {
     "password": "1234",
@@ -78,7 +77,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "data": {
@@ -107,15 +105,14 @@ baseURL: http://localhost:8000
   POST /api/verifyOTP
 ```
 
-| Parameter   | Type     | Request  | Description                                |
-| :---------- | :------- | :------- | :----------------------------------------- |
-| `patientId` | `string` | **Body** | **Required**. The id of patient            |
-| `otp`       | `string` | **Body** | **Required**. The otp get from above email |
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `patientId` | `string` | **Body** | **Required**. The id of patient |
+| `otp` | `string` | **Body** | **Required**. The otp get from above email |
+
 
 ##### Example
-
-- **Input**:
-
+- **Input**: 
 ```
 {
     "patientId": "640e984f4cca0bae11d4b008",
@@ -124,7 +121,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "status": "VERIFIED",
@@ -138,13 +134,13 @@ baseURL: http://localhost:8000
   POST /api/signIn
 ```
 
-| Parameter  | Type     | Request  | Description                        |
-| :--------- | :------- | :------- | :--------------------------------- |
-| `email`    | `string` | **Body** | **Required**. The email of user    |
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `email` | `string` | **Body**| **Required**. The email of user |
 | `password` | `string` | **Body** | **Required**. The password of user |
 
-- **Input**:
 
+- **Input**: 
 ```
 {
     "password": "12345678",
@@ -153,7 +149,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzFmMzUxOTZiOGQ2YmRkYzRmNCIsInNlc3Npb25JZCI6IjY0MGU5ZjQ2ODVmOWYwYzVlYTM3OGE3MSIsImlhdCI6MTY3ODY3OTg3OSwiZXhwIjoxNjc5MTExODc5fQ.gop8tkYd8Jzx-BeRXP6Vk3L0o_3lepfOvjIkDB5L7cA"
@@ -161,9 +156,7 @@ baseURL: http://localhost:8000
 ```
 
 ##### Patient Example
-
-- **Input**:
-
+- **Input**: 
 ```
 {
     "password": "12345678",
@@ -172,7 +165,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzIyMzUxOTZiOGQ2YmRkYzRmYSIsInNlc3Npb25JZCI6IjY0MGU5ZjZkODVmOWYwYzVlYTM3OGE3NSIsImlhdCI6MTY3ODY3OTkxNywiZXhwIjoxNjc5MTExOTE3fQ._SOgHHmQldtKIKxvd9uMfrMmPp5mj1BWmEjEbNcc_yc"
@@ -185,14 +177,13 @@ baseURL: http://localhost:8000
   POST /api/createGroup
 ```
 
-| Parameter     | Type     | Request    | Description                                          |
-| :------------ | :------- | :--------- | :--------------------------------------------------- |
-| `name`        | `string` | **Body**   | **Required**. The name of group                      |
-| `patients`    | `string` | **Body**   | **Optional**. The list of patients need add to group |
-| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header  |
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `name` | `string` | **Body** | **Required**. The name of group |
+| `patients` | `string` | **Body** | **Optional**. The list of patients need add to group |
+| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header |
 
-- **Input**:
-
+- **Input**: 
 ```
 {
     "name": "group 1",
@@ -203,7 +194,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "data": {
@@ -223,14 +213,12 @@ baseURL: http://localhost:8000
   PATCH /api/addPatientToGroup
 ```
 
-| Parameter     | Type     | Request    | Description                                          |
-| :------------ | :------- | :--------- | :--------------------------------------------------- |
-| `groupID`     | `string` | **Body**   | **Required**. The id of group need to add patient    |
-| `patients`    | `string` | **Body**   | **Optional**. The list of patients need add to group |
-| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header  |
-
-- **Input**:
-
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `groupID` | `string` |**Body** | **Required**. The id of group need to add patient |
+| `patients` | `string` | **Body** | **Optional**. The list of patients need add to group |
+| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header |
+- **Input**: 
 ```
 {
     "groupID": "640e9ff285f9f0c5ea378a84",
@@ -242,7 +230,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "message": "Add patients to group successfully",
@@ -266,14 +253,12 @@ baseURL: http://localhost:8000
   PATCH /api/addInfatOrChildToPatientRecord
 ```
 
-| Parameter     | Type     | Request    | Description                                              |
-| :------------ | :------- | :--------- | :------------------------------------------------------- |
-| `patientID`   | `string` | **Body**   | **Required**. The id of patient need to add child record |
-| `childID`     | `string` | **Body**   | **Required**. The id of child                            |
-| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header      |
-
-- **Input**:
-
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `patientID` | `string` | **Body**| **Required**. The id of patient need to add child record |
+| `childID` | `string` | **Body** | **Required**. The id of child |
+| `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header |
+- **Input**: 
 ```
 {
     "patientID": "640e972235196b8d6bddc4f8",
@@ -282,7 +267,6 @@ baseURL: http://localhost:8000
 ```
 
 - **Output**:
-
 ```
 {
     "data": {
@@ -310,22 +294,19 @@ baseURL: http://localhost:8000
   GET /api/getAllPatientRecords
 ```
 
-| Parameter     | Type     | Request    | Description                                         |
-| :------------ | :------- | :--------- | :-------------------------------------------------- |
-| `first_name`  | `string` | **Param**  | **Optional**. first name of patient                 |
-| `last_name`   | `string` | **Param**  | **Optional**. last name of patient                  |
-| `email`       | `string` | **Param**  | **Optional**. email of patient                      |
-| `type`        | `string` | **Param**  | **Optional**. type of patient                       |
+| Parameter | Type     | Request | Description                |
+| :-------- | :------- | :--------|:------------------------- |
+| `first_name` | `string` | **Param** | **Optional**. first name of patient |
+| `last_name` | `string` | **Param** | **Optional**. last name of patient |
+| `email` | `string` | **Param** | **Optional**. email of patient |
+| `type` | `string` | **Param** | **Optional**. type of patient |
 | `accessToken` | `string` | **Header** | **Required**. Must be include accessToken to Header |
-
-- **Input**:
-
+- **Input**: 
 ```
 
 ```
 
 - **Output**:
-
 ```
 {
     "data": [
