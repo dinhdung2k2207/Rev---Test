@@ -33,7 +33,7 @@ export class AdminController {
     }
   };
 
-  public addInfatOrChildToPatientRecord = async (
+  public addInfantOrChildToPatientRecord = async (
     req: Request,
     res: Response,
     next: NextFunction
@@ -60,6 +60,10 @@ export class AdminController {
 
       patient.childrens.push(childID);
       await patient.save();
+
+      return res.json({
+        data: patient,
+      });
     } catch (error) {
       return next(error);
     }
@@ -104,7 +108,7 @@ export class AdminController {
         is_verified: true,
         role: Role.USER,
         ...queryObject,
-      }).populate('childrens');
+      }).populate("childrens");
 
       return res.json({
         data: allPatients,

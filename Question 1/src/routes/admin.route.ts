@@ -15,7 +15,7 @@ router
   .route("/addInfatOrChildToPatientRecord")
   .patch(
     [checkSession, checkAdmin],
-    adminController.addInfatOrChildToPatientRecord
+    adminController.addInfantOrChildToPatientRecord
   );
 router
   .route("/getAllPatientRecords")

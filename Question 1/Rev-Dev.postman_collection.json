@@ -1,0 +1,314 @@
+{
+	"info": {
+		"_postman_id": "5ba18498-0b88-43eb-8694-21fa2ad38e1d",
+		"name": "Rev-Dev",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21029548"
+	},
+	"item": [
+		{
+			"name": "Admin",
+			"item": [
+				{
+					"name": "Create Group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzFmMzUxOTZiOGQ2YmRkYzRmNCIsInNlc3Npb25JZCI6IjY0MGU5OGE4NGNjYTBiYWUxMWQ0YjAxNCIsImlhdCI6MTY3ODY3ODE4NSwiZXhwIjoxNjc5MTEwMTg1fQ.JCseWDTbCAh2gjHl5CWDsA9TJanGBKsnzmnArXaWb1w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"group 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/createGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"createGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add Patient to Group",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzFmMzUxOTZiOGQ2YmRkYzRmNCIsInNlc3Npb25JZCI6IjY0MGU5OGE4NGNjYTBiYWUxMWQ0YjAxNCIsImlhdCI6MTY3ODY3ODE4NSwiZXhwIjoxNjc5MTEwMTg1fQ.JCseWDTbCAh2gjHl5CWDsA9TJanGBKsnzmnArXaWb1w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"groupID\": \"640e9ff285f9f0c5ea378a84\",\r\n    \"patients\": [\r\n        \"640e972235196b8d6bddc4f6\",\r\n        \"640e972235196b8d6bddc4f8\"\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/addPatientToGroup",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"addPatientToGroup"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add Infant Or Child To Patient Record",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzFmMzUxOTZiOGQ2YmRkYzRmNCIsInNlc3Npb25JZCI6IjY0MGU5ZmVhODVmOWYwYzVlYTM3OGE3YyIsImlhdCI6MTY3ODY4MDA0MywiZXhwIjoxNjc5MTEyMDQzfQ.IfODh1VaiFDqVpusV-EurtzkHZ87jAS7X9-N2hSFgW8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"patientID\": \"640e972235196b8d6bddc4f6\",\r\n    \"childID\": \"640e972835196b8d6bddc51e\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/addInfatOrChildToPatientRecord",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"addInfatOrChildToPatientRecord"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get All Patient Records",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY0MGU5NzFmMzUxOTZiOGQ2YmRkYzRmNCIsInNlc3Npb25JZCI6IjY0MGU5ZmVhODVmOWYwYzVlYTM3OGE3YyIsImlhdCI6MTY3ODY4MDA0MywiZXhwIjoxNjc5MTEyMDQzfQ.IfODh1VaiFDqVpusV-EurtzkHZ87jAS7X9-N2hSFgW8",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8000/api/getAllPatientRecords",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"getAllPatientRecords"
+							],
+							"query": [
+								{
+									"key": "type",
+									"value": "parent",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Sign Up",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"1234\",\r\n    \"email\": \"testsignin1@gmail.com\",\r\n    \"frist_name\": \"\",\r\n    \"last_name\": \"\",\r\n    \"address\": \"\",\r\n    \"type\": \"parent\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/signUp",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"signUp"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Sign In",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"password\": \"12345678\",\r\n    \"email\": \"admin@gmail.com\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/signIn",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"signIn"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Verify OTP",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"patientId\": \"640e984f4cca0bae11d4b008\",\r\n    \"otp\": \"6289\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/verifyOTP",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"verifyOTP"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Init Admin Acc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/initAdminAcc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"initAdminAcc"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Init Patients Acc",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/initPatients",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"initPatients"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

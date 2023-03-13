@@ -65,12 +65,12 @@ export class AuthController {
     next: NextFunction
   ): Promise<any> => {
     try {
-      const { patientsId, otp } = req.body;
+      const { patientId, otp } = req.body;
 
-      if (!patientsId || !otp) {
+      if (!patientId || !otp) {
         throw Error("Empty otp details are not allowed");
       } else {
-        const userOTPRecords = await UserOTPVerification.find({ patientsId });
+        const userOTPRecords = await UserOTPVerification.find({ patientId });
 
         if (userOTPRecords.length <= 0) {
           throw new Error(
@@ -81,7 +81,7 @@ export class AuthController {
           const hashedOtp = userOTPRecords[0].otp;
 
           if (expiresAt < Date.now()) {
-            await UserOTPVerification.deleteMany({ patientsId });
+            await UserOTPVerification.deleteMany({ patientId });
 
             throw new Error("Code has expired. Please request again");
           } else {
@@ -90,15 +90,15 @@ export class AuthController {
             if (!validOTP) {
               throw new Error("Invalid code passed. Check your inbox");
             } else {
-              await Patient.findByIdAndUpdate(patientsId, {
+              await Patient.findByIdAndUpdate(patientId, {
                 is_verified: true,
               });
-              await UserOTPVerification.deleteMany({ patientsId });
+              await UserOTPVerification.deleteMany({ patientId });
 
-              return {
+              return res.json({
                 status: "VERIFIED",
                 message: "User email verified successfully",
-              };
+              });
             }
           }
         }
