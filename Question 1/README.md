@@ -1,5 +1,8 @@
 [![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
 
+## Techstack
+Framework: expressjs\
+Database: MongoDB
 ## Installation
 
 This is a [Node.js](https://nodejs.org/en/) module available through the
@@ -22,7 +25,7 @@ $ npm install
 $ npm run server-ts
 ```
 
-- Run 2 APIS to create example database
+- If database is empty, run 2 APIS to create example database
 ```console
  http://localhost:8000/api/initAdminAcc
 ```
