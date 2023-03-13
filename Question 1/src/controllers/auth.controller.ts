@@ -1,10 +1,12 @@
 import { NextFunction, Request, Response } from "express";
 import * as bcrypt from "bcryptjs";
-import { Patient, UserOTPVerification } from "../models";
+import { LoginSession, Patient, UserOTPVerification } from "../models";
 import nodemailer from "nodemailer";
 import { Role } from "../enums/role.enum";
 import { generalTokens } from "../utils/generalToken";
 import { sendRefreshToken } from "../utils/sendRefreshToken";
+import { v4 as uuidv4 } from "uuid";
+import { EXPIRES_SESSION_TOKEN } from "../configs/constantEnv";
 
 export class AuthController {
   public sendOTPVerificationEmail = async (
@@ -49,7 +51,7 @@ export class AuthController {
         data: {
           userId: _id,
           email,
-          linkEmail: nodemailer.getTestMessageUrl(info)
+          linkEmail: nodemailer.getTestMessageUrl(info),
         },
       };
     } catch (error) {
@@ -88,7 +90,9 @@ export class AuthController {
             if (!validOTP) {
               throw new Error("Invalid code passed. Check your inbox");
             } else {
-              await Patient.findByIdAndUpdate(patientsId, { is_verified: true });
+              await Patient.findByIdAndUpdate(patientsId, {
+                is_verified: true,
+              });
               await UserOTPVerification.deleteMany({ patientsId });
 
               return {
@@ -110,7 +114,8 @@ export class AuthController {
     next: NextFunction
   ): Promise<any> => {
     try {
-      const { first_name, last_name, email, address, password, type } = req.body;
+      const { first_name, last_name, email, address, password, type } =
+        req.body;
 
       const passwordHash = bcrypt.hashSync(password, 10);
       const newPatient = new Patient({
@@ -121,7 +126,7 @@ export class AuthController {
         password: passwordHash,
         is_verified: false,
         type,
-        role: Role.USER
+        role: Role.USER,
       });
 
       await newPatient.save();
@@ -129,8 +134,8 @@ export class AuthController {
 
       return res.json({
         data: newPatient,
-        mail: mail.data.linkEmail
-      })
+        mail: mail.data.linkEmail,
+      });
     } catch (error) {
       return next(error);
     }
@@ -158,20 +163,27 @@ export class AuthController {
           message: "Wrong Password",
         });
       }
+      const session = await LoginSession.create({
+        token: uuidv4(),
+        expires_at: Date.now() + 36000000,
+        patient: currUser._id,
+      });
 
-      const { accessToken, refreshToken } = generalTokens
-      (
-        currUser._id.toString()
+      currUser.login_sessions = session._id;
+      await currUser.save();
+
+      const { accessToken, refreshToken } = generalTokens(
+        currUser._id.toString(),
+        session._id.toString()
       );
 
       sendRefreshToken(res, refreshToken);
 
       return res.json({
         accessToken,
-      })
+      });
     } catch (error) {
       return next(error);
     }
   };
-
 }

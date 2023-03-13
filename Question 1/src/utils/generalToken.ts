@@ -14,7 +14,8 @@ export const generalToken = ({
 };
 
 export const generalTokens = (
-  userId: string
+  userId: string,
+  sessionId: string
 ): {
   accessToken: string;
   refreshToken: string;
@@ -22,6 +23,7 @@ export const generalTokens = (
   const accessToken = generalToken({
     data: {
       id: userId,
+      sessionId,
     },
     expiresIn: "5d",
     secretKey: SECRET_KEY,
@@ -30,6 +32,7 @@ export const generalTokens = (
   const refreshToken = generalToken({
     data: {
       id: userId,
+      sessionId,
     },
     expiresIn: "7d",
     secretKey: SECRET_REFRESH,

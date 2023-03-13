@@ -12,3 +12,5 @@ export const SECRET_REFRESH = process.env.SECRET_REFRESH as string;
 export const EXPIRES_ACCESS_TOKEN = process.env.EXPIRES_ACCESS_TOKEN as string;
 export const EXPIRES_REFRESH_TOKEN = process.env
   .EXPIRES_REFRESH_TOKEN as string;
+export const EXPIRES_SESSION_TOKEN = process.env
+  .EXPIRES_SESSION_TOKEN as string;

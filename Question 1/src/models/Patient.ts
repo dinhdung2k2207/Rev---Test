@@ -14,6 +14,7 @@ interface IPatient {
   type?: patientEnum.PatientType;
   childrens?: [Types.ObjectId];
   role: roleEnum.Role;
+  login_sessions: Types.ObjectId;
 }
 
 const patientSchema = new Schema<IPatient>(
@@ -37,6 +38,10 @@ const patientSchema = new Schema<IPatient>(
       },
     ],
     role: { type: String, trim: true },
+    login_sessions: {
+      type: Schema.Types.ObjectId,
+      ref: "LoginSession",
+    },
   },
   { timestamps: true }
 );

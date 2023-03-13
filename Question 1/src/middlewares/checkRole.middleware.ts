@@ -1,8 +1,49 @@
 import { Request, Response, NextFunction } from "express";
-import { verify } from "jsonwebtoken";
-import { SECRET_KEY } from "../configs/constantEnv";
 import _ from "lodash";
-import { Patient } from "../models";
+import {
+  getAuthTokenInfo,
+  getUserFromAuthToken,
+} from "../utils/getUserFromAuthToken";
+import { LoginSession } from "../models";
+
+export const checkSession = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+): Promise<void> => {
+  try {
+    const bearerToken = req.headers.authorization;
+
+    if (!bearerToken) {
+      throw new Error("You must be logged in");
+    }
+
+    const user = await getUserFromAuthToken(bearerToken);
+    console.log("🚀 ~ file: checkRole.middleware.ts:21 ~ user:", user);
+
+    if (!user) {
+      throw new Error("Not authenticated to perform operations");
+    }
+
+    const tokenData = getAuthTokenInfo(bearerToken);
+    const sessionId = _.get(tokenData, "sessionId");
+
+    const session = await LoginSession.findById(sessionId);
+    console.log(
+      "🚀 ~ file: checkRole.middleware.ts:32 ~ session:",
+      session.token
+    );
+
+    console.log(user.login_sessions.token === session.token);
+    if (user.login_sessions.token !== session.token) {
+      throw new Error("Please login again");
+    }
+
+    return next();
+  } catch (error) {
+    return next(new Error("AUTHENTICATION_FAILED"));
+  }
+};
 
 export const checkAdmin = async (
   req: Request,
@@ -15,11 +56,8 @@ export const checkAdmin = async (
     if (!bearerToken) {
       throw new Error("You must be logged in");
     }
-    
-    const token = bearerToken.split(" ")[1];
-    const data: any = verify(token, SECRET_KEY || "");
-    const id = _.get(data, "id");
-    const user = await Patient.findById(id);
+
+    const user = await getUserFromAuthToken(bearerToken);
 
     if (!user) {
       throw new Error("Not authenticated to perform operations");
@@ -33,5 +71,4 @@ export const checkAdmin = async (
   } catch (error) {
     return next(new Error("AUTHENTICATION_FAILED"));
   }
-
 };
